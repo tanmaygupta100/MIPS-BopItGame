@@ -1,4 +1,4 @@
-# Text-Based V1 - Simon Says
+# Text-Based V1.1 - Simon Says
 # Tanmay Gupta
 
 .data
@@ -17,11 +17,10 @@ main:
 	jal InitRand			# Initialize random number generator.
 
 	# Game loop:
-	li $t0, 0				# Initialize attempt counter.
-	lw $t1, max_attempts	# Loading in max attempts. 
-	li $t3, 0				# Initialize $t3 to zero.
+    	j game_loop             # Call game loop to start the game.
 	
-	j game_loop			# Call game loop to start the game.
+	# Check user input:
+	j user_check			# Call game loop to start the game.
 
 		
 game_loop:
@@ -57,6 +56,7 @@ display_win:
 	la $a0, win_msg
 	li $v0, 4
 	syscall
+	j exit_game
 exit_game:
 	# Exit the program:
 	li $v0, 10
