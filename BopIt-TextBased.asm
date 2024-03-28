@@ -1,4 +1,4 @@
-# Text-Based V2.2 - Bop It
+# Text-Based V2.3 - Bop It
 # Tanmay Gupta
 # TO DO: Nest procedures
 
@@ -16,15 +16,24 @@
 # Procedure - main:
 # Runs the program and calls the appropriate procedures.
 main:
-	jal clear_screen
+	jal random_number # generates 1-digit random number
+	jal game_loop
+	
 
-	jal random_number
-	jal user_prompt
+game_loop:
+	#jal clear_screen
 	
-	jal comparison_logic
-	jal num_shifter
+	jal user_prompt # asks user to enter a number
+	jal comparison_logic # checks if user input (s1) matches the random number (s0).
 	
-	j main
+	jal random_number2 # new random (s3).
+	jal new_line
+	
+	jal num_shifter # multiplies s0 by 10, then stores in s2. Adds new random s3 to s2 and stores back in s0.
+
+	jal new_line
+	
+	j game_loop
 
 
 # Procedure - random_number:
@@ -40,9 +49,34 @@ random_number:
 	syscall
 	jr $ra
 
+random_number2:
+	li $a1, 4			# Sets $a1 to the max bound.
+	li $v0, 42			# Generates the random number.
+	syscall
+	add $a0, $a0, 1		# Adds the lowest bound.
+	move $s3, $a0		# Moves random number to s3, to use later.
+	li $v0, 1			# 1 to print integer.
+	syscall
+	jr $ra
+
 # Procedure - num_shifter:
 # Shifts the randomly generated number for updating the sequences.
+# First, multiplies the value in $s0 by a constant (e.g., 10). Stores result in s2.
 num_shifter:
+	li $t0, 10			# Load the constant value (e.g., 10) into a temporary register $t0.
+	mul $s2, $s0, $t0	# Multiply the value in $s0 by the constant and store the result in $s2.
+    
+	# Display the result
+	#li $v0, 1
+	move $a0, $s2		# Load the result into argument register $a0.
+	#syscall
+	
+	move $s0, $s2
+	
+	add $s0, $s0, $s3	# Add the value in $s3 to the value in $s0
+	li $v0, 1
+	move $a0, $s0          # Load the new result into argument register $a0.
+	syscall
 	jr $ra
 
 
@@ -71,15 +105,15 @@ user_prompt:
 
 	# Check if the input is within range (1-4):
 	li $t1, 1		# Lower bound
-	li $t2, 4		# Upper bound
+	#li $t2, 4		# Upper bound
 	blt $t0, $t1, invalid_input		# If input is less than 1, prompt again
-	bgt $t0, $t2, invalid_input		# If input is greater than 4, prompt again
+	#bgt $t0, $t2, invalid_input		# If input is greater than 4, prompt again
 
 	# Print the input:
-	li $v0, 1
+	#li $v0, 1
 	move $a0, $t0
 	move $s1, $a0	# Moves random number to s1, to use later.
-	syscall
+	#syscall
 
 	j new_line
 
