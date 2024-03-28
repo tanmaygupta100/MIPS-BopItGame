@@ -15,7 +15,7 @@
 main:
 	jal game_loop
 
-	# Tell me when program is done:
+	# Ends program:
 	li $v0, 10
 	syscall
 
@@ -62,10 +62,7 @@ user_prompt:
 	move $a0, $t0
 	syscall
 
-	# Print new line:
-	li $v0, 4
-	la $a0, newLine
-	syscall
+	j new_line
 
 	jr $ra
 
@@ -75,3 +72,10 @@ invalid_input:
 	la $a0, invalidMsg
 	syscall
 	j user_prompt		# Prompt again for input
+
+new_line:
+	# Print new line:
+	li $v0, 4
+	la $a0, newLine
+	syscall
+	jr $ra
