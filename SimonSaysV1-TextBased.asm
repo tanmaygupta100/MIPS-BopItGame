@@ -13,19 +13,22 @@
 .text
 
 main:
-	game_loop:
-		# Print lines to "clear" screen:
-		li $v0, 4
-		la $a0, clrScreen
-		syscall
-
-		jal random_number
-		jal user_prompt
-		j game_loop
+	jal game_loop
 
 	# Tell me when program is done:
 	li $v0, 10
 	syscall
+
+
+game_loop:
+	# Print lines to "clear" screen:
+	li $v0, 4
+	la $a0, clrScreen
+	syscall
+
+	jal random_number
+	jal user_prompt
+	j game_loop
 
 
 random_number:
