@@ -12,7 +12,7 @@
 	winMsg:		.asciiz "\nYou win!\n"
 	loseMsg:		.asciiz "\nYou lose...\n"
 	invalidMsg:	.asciiz "Invalid input, try again!"
-	timeInt:		.word 4000000
+	timeInt:		.word 6000000
 
 
 .text
