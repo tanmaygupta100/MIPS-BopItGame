@@ -34,6 +34,18 @@ random_number:
 	add $a0, $a0, 1  #Here you add the lowest bound
 	li $v0, 1   #1 print integer
 	syscall
+	move $t0, $v0
+	
+	num_shifter:
+		addi $t1, $zero, 10
+		mult $t0, $t1
+		# has the result of the multi
+		mflo $s0
+		# DISPLAY TO SCREEN:
+		li $v0, 1
+		syscall
+		jr $ra
+		
 	jr $ra
 
 user_prompt:
