@@ -128,7 +128,7 @@ main:
 		bne	$t6, $t5, newDifficultyLoop
 	
 		la	$a0, sequenceArray	# sequenceArray (address) -> $a0
-		la	$a1, sequenceMax	# sequenceMax (address) -> $a`
+		la	$a1, sequenceMax	# sequenceMax (address) -> $a1
 	
 		jal	displaySequence
 		la	$a0, sequenceArray
