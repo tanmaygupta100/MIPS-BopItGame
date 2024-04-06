@@ -382,7 +382,7 @@ calcAddr:
 
 
 # Procedure: getColor
-# STEP 2 - Function to lookup color number
+# STEP 3 - Function to lookup color number
 # $a2 = color number (0-7)
 # returns $v1 = actual number to write to the display
 getColor:
